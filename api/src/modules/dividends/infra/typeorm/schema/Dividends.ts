@@ -7,22 +7,25 @@ import {
   ObjectID,
 } from 'typeorm';
 
-import { Exclude } from 'class-transformer';
-
-@Entity('users')
-class User {
+@Entity('dividends')
+class Dividends {
   @ObjectIdColumn()
   id: ObjectID;
+
+  @Column('number')
+  user_id: number;
 
   @Column('varchar')
   name: string;
 
   @Column('varchar')
-  email: string;
+  reason: string;
 
   @Column('varchar')
-  @Exclude()
-  password: string;
+  price: string;
+
+  @Column('varchar')
+  date: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -31,4 +34,4 @@ class User {
   updated_at: Date;
 }
 
-export default User;
+export default Dividends;

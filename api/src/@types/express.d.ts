@@ -4,8 +4,4 @@ declare namespace Express {
       id: string;
     };
   }
-
-  export interface Application {
-    io: any;
-  }
 }

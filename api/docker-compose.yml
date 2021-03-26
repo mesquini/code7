@@ -6,6 +6,7 @@ services:
       - 27017:27017
   redis:
     image: redis:alpine
+    command: redis-server --requirepass docker
     ports:
       - 6379:6379
   app:

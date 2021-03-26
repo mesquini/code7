@@ -1,143 +1,418 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
-    "description": "",
+    "title": "Debts",
     "version": "1.0.0",
-    "title": "Swagger Debts",
-    "contact": {},
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    "description": "API para controle de devedores",
+    "contact": {
+      "name": "Victor Mesquini",
+      "email": "mesquini@live.com"
     }
   },
-  "host": "localhost:3333",
-  "schemes": [
-    "https",
-    "http"
+  "servers": [
+    {
+      "url": "http://localhost:3333",
+      "description": "dev"
+    }
+  ],
+  "tags":[
+    {
+      "name": "Auth"
+    },
+    {
+      "name": "Devedores"
+    }
   ],
   "paths": {
     "/sessions": {
       "post": {
-        "summary": "",
-        "operationId": "post-sessions",
+        "summary": "Faz autenticação",
+        "operationId": "post-session",
         "responses": {
           "201": {
-            "description": "Created",
-            "schema": {
-              "description": "",
-              "type": "object",
-              "properties": {
-                "user": {
+            "description": "Session Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
                   "type": "object",
                   "properties": {
-                    "id": {
-                      "type": "string",
-                      "minLength": 1
+                    "token": {
+                      "type": "string"
                     },
-                    "name": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "email": {
-                      "type": "string",
-                      "minLength": 1
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      }
                     }
                   },
                   "required": [
-                    "id",
-                    "name",
-                    "email"
+                    "token"
                   ]
                 },
-                "token": {
-                  "type": "string",
-                  "minLength": 1
-                }
+                "examples": {}
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
               },
-              "required": [
-                "user",
-                "token"
-              ]
+              "examples": {
+                "exemple-1": {
+                  "value": {
+                    "email": "admin@debts.com",
+                    "password": "123123"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Criar uma sessão para fazer as operações dentro do sistema"
+        },
+        "description": "Cria uma nova sessão",
+        "tags": [
+          "Auth"
+        ]
+      },
+      "parameters": []
+    },
+    "/dividends": {
+      "parameters": [],
+      "get": {
+        "summary": "Busca todos devedores",
+        "tags": [
+          "Devedores"
+        ],
+        "responses": {
+          "200": {
+            "description": "Dividends Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/dividend"
+                  }
+                },
+                "examples": {
+                  "exemple-1": {
+                    "value": [
+                      {
+                        "id": "605e136806984260e064976a",
+                        "user_id": "2",
+                        "name": "Fulano",
+                        "price": "25,00",
+                        "date": "26/03/2012",
+                        "reason": "cartão de credito"
+                      },
+                      {
+                        "id": "555e136806984260q064976a",
+                        "user_id": "3",
+                        "name": "Beltrano",
+                        "price": "205,00",
+                        "date": "06/03/2012",
+                        "reason": "cartão de credito"
+                      }
+                    ]
+                  }
+                }
+              }
             }
           },
           "400": {
-            "$ref": "#/responses/ErrorReponse"
+            "$ref": "#/components/responses/Error"
           },
           "401": {
-            "$ref": "#/responses/ErrorReponse"
+            "$ref": "#/components/responses/Error"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "operationId": "get-dividend",
+        "description": "Retornar um array de objeto de devedores",
+        "security": [
+          {
+            "Bearer Auth": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Atualiza um devedor",
+        "operationId": "put-dividends",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
           }
         },
         "tags": [
-          "Auth"
+          "Devedores"
         ],
-        "parameters": [
+        "security": [
           {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "description": "",
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "email",
-                "password"
-              ]
+            "Bearer Auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/dividend"
+              }
             }
+          }
+        },
+        "description": "Rota para atualizar um devedor existente"
+      },
+      "post": {
+        "summary": "Cria um devedor",
+        "operationId": "post-dividends",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/dividend"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "id": "605e136806984260e064976a",
+                      "user_id": "2",
+                      "name": "Fulano",
+                      "price": "25,00",
+                      "date": "26/03/2012",
+                      "reason": "cartão de credito"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "tags": [
+          "Devedores"
+        ],
+        "security": [
+          {
+            "Bearer Auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "number"
+                  },
+                  "price": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "user_id",
+                  "price",
+                  "date",
+                  "reason"
+                ]
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "user_id": 2,
+                    "name": "Fulano",
+                    "price": "25,00",
+                    "date": "26/03/2012",
+                    "reason": "cartão de credito"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Rota para criar um novo devedor"
+      }
+    },
+    "/dividends/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID do devedor"
+        }
+      ],
+      "delete": {
+        "summary": "Deleta um devedor",
+        "operationId": "delete-dividends-id",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "tags": [
+          "Devedores"
+        ],
+        "description": "Rota para deletar um devedor específico",
+        "security": [
+          {
+            "Bearer Auth": []
           }
         ]
       }
     }
   },
-  "securityDefinitions": {},
-  "definitions": {},
-  "externalDocs": {
-    "description": "Find out more about Swagger",
-    "url": "http://swagger.io"
-  },
-  "responses": {
-    "ErrorReponse": {
-      "description": "Example response",
-      "content": {
-        "application/json": {
-          "schema": {
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      },
-      "schema": {
-        "description": "",
+  "components": {
+    "schemas": {
+      "dividend": {
+        "title": "dividend",
         "type": "object",
+        "description": "Modelo de objeto dos devedores",
         "properties": {
-          "status": {
+          "id": {
             "type": "string"
           },
-          "message": {
+          "user_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "reason": {
             "type": "string"
           }
         },
         "required": [
-          "status",
-          "message"
-        ]
-      },
-      "examples": {}
+          "id",
+          "user_id",
+          "name",
+          "price",
+          "date",
+          "reason"
+        ],
+        "x-examples": {
+          "example-1": {
+            "id": "605e136806984260e064976a",
+            "user_id": "2",
+            "name": "Fulano",
+            "price": "25,00",
+            "date": "26/03/2012",
+            "reason": "cartão de credito"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer Auth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "responses": {
+      "Error": {
+        "description": "Example response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
     }
-  },
-  "produces": [
-    "application/json"
-  ],
-  "consumes": [
-    "application/json"
-  ]
+  }
 }

@@ -38,55 +38,18 @@ interface IUser {
 
 interface IDividend {
   id: string;
+  user_id: number;
   name: string;
   price: string;
   reason: string;
   date: string;
 }
 
-const mockDividend = [
-  {
-    id: '1',
-    name: 'string',
-    price: 'string',
-    reason: 'string',
-    date: 'string',
-  },
-  {
-    id: '2',
-    name: 'string',
-    price: 'string',
-    reason: 'string',
-    date: 'string',
-  },
-  {
-    id: '3',
-    name: 'string',
-    price: 'string',
-    reason: 'string',
-    date: 'string',
-  },
-  {
-    id: '4',
-    name: 'string',
-    price: 'string',
-    reason: 'string',
-    date: 'string',
-  },
-  {
-    id: '5',
-    name: 'string1',
-    price: 'string1',
-    reason: 'string1',
-    date: 'string1',
-  }
-] as IDividend[]
-
 const Dashboard: React.FC = () => {
   const [q, setQ] = useState('');
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [dividends, setDividends] = useState<IDividend[]>(mockDividend as IDividend[]);
+  const [dividends, setDividends] = useState<IDividend[]>([] as IDividend[]);
   const [selectedDividend, setSelectedDividend] = useState<IDividend>({} as IDividend);
   const [users, setUsers] = useState<IUser[]>([] as IUser[]);
   const [userSelected, setUserSelect] = useState<IUser>({} as IUser);
@@ -96,18 +59,23 @@ const Dashboard: React.FC = () => {
   const { signOut, user } = useAuth();
   const { addToast } = useToast();
 
-
-
   const handleGetDividends = useCallback(async () => {
     try {
       setLoading(true);
 
-    } catch (err) {
+      const response = await api.get<IDividend[]>('/dividends');
 
+      setDividends(response.data);
+
+    } catch (err) {
+      addToast({
+        type: 'error',
+        title: 'Erro ao buscar os Devedores.',
+      });
     } finally {
       setLoading(false);
     }
-  },[]);
+  },[addToast]);
 
   const handleGetUsers = useCallback(async () => {
     try {
@@ -162,24 +130,32 @@ const Dashboard: React.FC = () => {
     setShow(true);
   },[])
 
-  const handleDeleteDivident = useCallback(() => {
+  const handleDeleteDivident = useCallback(async () => {
     try {
+      setLoading(true);
+
+      await api.delete(`/dividends/${selectedDividend.id}`);
+
       setDividends(state => state.filter(d => d.id !== selectedDividend.id));
 
       addToast({
         type: 'success',
-        title: 'Dividendo deletado com sucesso.',
-      })
+        title: 'Devedor deletado com sucesso.',
+      });
     } catch (err) {
-
+      addToast({
+        type: 'error',
+        title: 'Erro ao deletar Devedor.',
+      });
     } finally {
       handleCancelModal();
+      setLoading(false);
     }
   },[addToast, handleCancelModal, selectedDividend.id])
 
   const handleSubmit = useCallback(async (data) => {
     try {
-      console.log(data);
+      setLoading(true);
       formRef.current?.setErrors({});
 
       const schema = Yup.object().shape({
@@ -195,10 +171,12 @@ const Dashboard: React.FC = () => {
 
       if(!userSelected.id && !data.id) return;
 
-      //chamar api
       if(data.id){
-        // chama update
-        console.log('update')
+
+        await api.put<IDividend>('/dividends', {
+          ...data,
+        });
+
         setDividends(state =>
            state.map(d => {
             if(d.id === data.id) return data;
@@ -208,21 +186,21 @@ const Dashboard: React.FC = () => {
 
         addToast({
           type: 'success',
-          title: 'Dividendo alterado com sucesso!',
+          title: 'Devedor alterado com sucesso!',
         });
       }
       else {
-        // chama create
-        console.log('create')
-        setDividends(state => [...state, {
-          id: Date.now().toString(),
-          name: userSelected.name,
+        const response = await api.post<IDividend>('/dividends', {
           ...data,
-        }]);
+          user_id: userSelected.id,
+          name: userSelected.name
+        });
+
+        setDividends(state => [...state, response.data]);
 
         addToast({
           type: 'success',
-          title: 'Dividendo cadastrado com sucesso!',
+          title: 'Devedor cadastrado com sucesso!',
         });
       }
 
@@ -237,9 +215,11 @@ const Dashboard: React.FC = () => {
 
         addToast({
           type: 'error',
-          title: 'Erro ao criar dividendo',
-          description: 'Ocorreu um erro ao cadastrar um dividendo, cheque as informações!',
+          title: 'Erro ao criar Devedor',
+          description: 'Ocorreu um erro ao cadastrar um Devedor, cheque as informações!',
         });
+    } finally {
+      setLoading(false);
     }
   },[userSelected.id, userSelected.name, handleCancelModal, addToast]);
 
@@ -275,7 +255,7 @@ const Dashboard: React.FC = () => {
               icon={FaSistrix}
               value={q}
               onChange={e => setQ(e.target.value)}
-              placeholder="Buscar dividendo"
+              placeholder="Buscar Devedor"
             />
           </Form>
           <Button onClick={() => setShow(true)}>+ CADASTRAR</Button>
@@ -287,7 +267,7 @@ const Dashboard: React.FC = () => {
                 {filteredDividends.length === 0 ? (
                   <Empty>
                     <strong>
-                      Você não tem nenhum dividendo com esse nome!
+                      Você não tem nenhum devedor com esse nome!
                     </strong>
                   </Empty>
                 ) : (
@@ -307,7 +287,7 @@ const Dashboard: React.FC = () => {
               </div>
             ) : (
               <Empty>
-                <strong>Você não possuí nenhum dividendo cadastrado!</strong>
+                <strong>Você não possuí nenhum devedor cadastrado!</strong>
               </Empty>
             )}
           </div>
@@ -316,7 +296,7 @@ const Dashboard: React.FC = () => {
             <ClapSpinner
               loading={loading}
               size={45}
-              frontColor="#7159c1"
+              frontColor="#135B7B"
               backColor="#686769"
             />
           </Loading>
@@ -326,7 +306,7 @@ const Dashboard: React.FC = () => {
 
       <Modal show={show} onHide={handleCancelModal}>
         <Modal.Header>
-          <Modal.Title>Cadastro de dividendo</Modal.Title>
+          <Modal.Title>Cadastro de Devedor</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form ref={formRef} onSubmit={handleSubmit} initialData={selectedDividend}>
@@ -335,6 +315,7 @@ const Dashboard: React.FC = () => {
               {selectedDividend.id ? (
                 <div>
                   <Input name="id" readOnly containerStyle={{display: 'none'}} value={selectedDividend.id} />
+                  <Input name="user_id" readOnly containerStyle={{display: 'none'}} value={selectedDividend.user_id} />
                   <Input name="name" containerStyle={{opacity: 0.5}} readOnly disabled />
                 </div>
               ) : (
