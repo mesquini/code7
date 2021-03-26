@@ -4,7 +4,6 @@ import api from '../services/api';
 interface IUser {
   id: string;
   name: string;
-  avatar_url: string;
   email: string;
 }
 

@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
-
+  height: 100%;
+  background-color: #dddd;
 `;
 
 export const Header = styled.div`
   padding: 30px 0;
-  background: #28262e;
+  background: #111C29;
 `;
 
 export const HeaderContent = styled.div`
@@ -26,13 +27,13 @@ export const HeaderContent = styled.div`
     border: 0;
 
     svg {
-      color: #999591;
+      color: #81878E;
       width: 20px;
       height: 20px;
       transition: all 0.5s;
 
       &:hover {
-        color: #ff9000;
+        color: #135B7B;
       }
     }
   }
@@ -56,11 +57,11 @@ export const Profile = styled.div`
     line-height: 24px;
 
     span {
-      color: #f4ede8;
+      color: #81878E;
     }
 
     strong {
-      color: #ff9000;
+      color: #135B7B;
     }
 
     a {
@@ -84,29 +85,9 @@ export const Buttons = styled.div`
   margin-bottom: 15px;
   align-items: center;
 
-  div {
-    position: relative;
-    padding-left: 20px;
-
-    input {
-      height: 40px;
-      border-radius: 4px;
-      padding: 15px;
-      border: 1px solid #fff;
-      padding-left: 30px;
-    }
-    svg {
-      position: absolute;
-      bottom: 10px;
-      left: 25px;
-      top: 10px;
-      color: rgba(0, 0, 0, 0.5);
-    }
-  }
-
   button {
-    background: #7156c1;
-    border-color: #7156c1;
+    background: #135B7B;
+    border-color: #135B7B;
     width: 20vh;
     height: 5vh;
     padding: 10px;
@@ -116,8 +97,8 @@ export const Buttons = styled.div`
     text-decoration: none;
 
     &:hover {
-      background: ${darken(0.1, '#7156c1')};
-      border-color: ${darken(0.1, '#7156c1')};
+      background: ${darken(0.1, '#135B7B')};
+      border-color: ${darken(0.1, '#135B7B')};
     }
   }
 

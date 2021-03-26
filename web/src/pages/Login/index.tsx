@@ -17,6 +17,8 @@ import { Container } from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+import logo from '../../assets/logo_branca.svg'
+
 interface ISignInFormData {
   email: string;
   password: string;
@@ -70,8 +72,14 @@ export default function Login() {
 
   return (
     <Container>
-      <Form ref={formRef} onSubmit={handleSubmit}>
-        <h1>Faça seu logon</h1>
+      <Form style={{backgroundColor: "#ddd"}} ref={formRef} onSubmit={handleSubmit}>
+        <h1>Faça seu login</h1>
+        <img
+          src={logo}
+          alt="logo"
+          style={{margin: 'auto', display: 'flex'}}
+          width={200}
+          height={100}/>
 
         <Input
           name="email"

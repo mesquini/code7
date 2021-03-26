@@ -250,13 +250,13 @@ const Dashboard: React.FC = () => {
           <Profile>
             <img
               src={
-                'https://ui-avatars.com/api/?background=random&name=Admin'
+                `https://ui-avatars.com/api/?name=${user.name}`
               }
               alt="Admin"
             />
             <div>
               <span>Bem-Vindo,</span>
-              <strong>Admin</strong>
+              <strong>{user.name}</strong>
             </div>
           </Profile>
 
@@ -269,15 +269,15 @@ const Dashboard: React.FC = () => {
       <Content>
         <h2>Gerenciando de Dívidas</h2>
         <Buttons>
-          <div>
-            <FaSistrix size={18} />
-            <input
-              type="text"
+          <Form onSubmit={() => {}}>
+            <Input
+              name="search"
+              icon={FaSistrix}
               value={q}
               onChange={e => setQ(e.target.value)}
               placeholder="Buscar dividendo"
             />
-          </div>
+          </Form>
           <Button onClick={() => setShow(true)}>+ CADASTRAR</Button>
         </Buttons>
         {!loading ? (
@@ -335,7 +335,7 @@ const Dashboard: React.FC = () => {
               {selectedDividend.id ? (
                 <div>
                   <Input name="id" readOnly containerStyle={{display: 'none'}} value={selectedDividend.id} />
-                  <Input name="name" readOnly />
+                  <Input name="name" containerStyle={{opacity: 0.5}} readOnly disabled />
                 </div>
               ) : (
                 <FormControl
