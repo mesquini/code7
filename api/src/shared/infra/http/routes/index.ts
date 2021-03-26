@@ -4,6 +4,7 @@ import swaggerDoc from '@shared/swagger.json';
 
 import sessionsRoutes from '@modules/users/infra/http/routes/sessions.routes';
 import dividentsRoutes from '@modules/dividends/infra/http/routers/dividends.routes';
+import usersRoutes from '@modules/users/infra/http/routes/users.routes';
 
 const routes = Router();
 
@@ -16,6 +17,7 @@ routes.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDoc ,{
 }));
 
 routes.use('/sessions', sessionsRoutes);
+routes.use('/users', usersRoutes);
 routes.use('/dividends', dividentsRoutes);
 
 export default routes;

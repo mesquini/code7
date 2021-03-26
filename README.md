@@ -1,11 +1,9 @@
-# code7
-
 <p align="center">
   <img src=".github/logo_branca.svg" alt="App demo"/>
 </p>
 
 <h4 align="center">
-  Plataforma para cadastar devedores
+  Plataforma para controle de devedores
 </h4>
 
 <p align="center">
@@ -35,7 +33,16 @@ Este projeto foi desenvolvido o seguinte desafio ([clique aqui para ver](https:/
 - Frontend
   - [Axios](https://www.npmjs.com/package/axios)
   - [Yup](https://github.com/jquense/yup)
+  - [React Toastify](https://www.npmjs.com/package/react-toastify)
+  - [Styled Components](https://www.npmjs.com/package/styled-components)
+  - [uuidv4](https://www.npmjs.com/package/uuidv4)
+  - [React Spinners Kit](https://www.npmjs.com/package/react-spinners-kit)
+  - [React Router Dom](https://www.npmjs.com/package/react-router-dom)
   - [React Icons](https://www.npmjs.com/package/react-icons)
+  - [Bootstrap](https://www.npmjs.com/package/bootstrap)
+  - [Polished](https://www.npmjs.com/package/polished)
+  - [@unform/core](https://www.npmjs.com/package/@unform/core)
+  - [@unform/web](https://www.npmjs.com/package/@unform/web)
 
 ## :information_source: Como codar
 
