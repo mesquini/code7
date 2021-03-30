@@ -6,7 +6,7 @@ import AppError from '@shared/errors/AppError';
 import IUsersRepository from '../repositories/IUserRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
-import User from '../infra/typeorm/schema/User';
+import Users from '../infra/typeorm/schema/Users';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
 
 @injectable()
@@ -24,7 +24,7 @@ class CreateUserService {
     name,
     email,
     password,
-  }: ICreateUserDTO): Promise<User> {
+  }: ICreateUserDTO): Promise<Users> {
     const checkUserExists = await this.usersRepository.findByMail(email);
 
     if (checkUserExists) throw new AppError('Email address already used.');

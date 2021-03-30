@@ -1,13 +1,15 @@
-FROM node:14-alpine
+FROM node:alpine
 
 WORKDIR /app
 
-ADD package.json /app
+ADD package.json .
 
-RUN yarn
+RUN yarn --silent
 
-ADD . /app
+ADD . .
 
 RUN yarn build
 
 CMD yarn start
+
+EXPOSE 3333

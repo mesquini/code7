@@ -10,7 +10,7 @@ import {
 import { Exclude } from 'class-transformer';
 
 @Entity('users')
-class User {
+class Users {
   @ObjectIdColumn()
   id: ObjectID;
 
@@ -31,4 +31,4 @@ class User {
   updated_at: Date;
 }
 
-export default User;
+export default Users;

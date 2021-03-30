@@ -1,13 +1,14 @@
+import { MongoRepository, getMongoRepository } from "typeorm";
+
 import ICreateDividendDTO from "@modules/dividends/dtos/ICreateDividendDTO";
 import IDividendsRepository from "@modules/dividends/repositories/IDividendsRepository";
-import { MongoRepository, getMongoRepository } from "typeorm";
 import Dividends from "../schema/Dividends";
 
 export default class DividendsRepository implements IDividendsRepository {
   private ormRepository: MongoRepository<Dividends>;
 
   constructor() {
-    this.ormRepository = getMongoRepository(Dividends, 'default');
+    this.ormRepository = getMongoRepository(Dividends);
   }
 
   public async findAll(): Promise<Dividends[]> {

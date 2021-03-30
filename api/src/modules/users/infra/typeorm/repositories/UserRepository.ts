@@ -1,22 +1,22 @@
-import { getRepository, Repository } from 'typeorm';
+import { getMongoRepository, MongoRepository } from 'typeorm';
 
 import IUsersRepository from '@modules/users/repositories/IUserRepository';
 
-import User from '../schema/User';
+import Users from '../schema/Users';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
 class UsersRepository implements IUsersRepository {
-  private ormRepository: Repository<User>;
+  private ormRepository: MongoRepository<Users>;
 
   constructor() {
-    this.ormRepository = getRepository(User);
+    this.ormRepository = getMongoRepository(Users);
   }
 
-  public async create(data: ICreateUserDTO): Promise<User> {
+  public async create(data: ICreateUserDTO): Promise<Users> {
     return this.ormRepository.save(data);
   }
 
-  public async findByMail(email: string): Promise<User | null> {
+  public async findByMail(email: string): Promise<Users | null> {
     const findUser = await this.ormRepository.findOne({
       where: {
         email,

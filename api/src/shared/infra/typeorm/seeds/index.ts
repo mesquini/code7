@@ -13,7 +13,8 @@ async function create() {
 
 async function seedDB() {
     // Connection URL
-    const uri = process.env.MONGODB_URL || 'mongodb://localhost';
+    const uri = process.env.MONGO_URL || 'mongodb://localhost';
+
     const client = new MongoClient(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,

@@ -6,11 +6,12 @@
   "author": "victor mesquini",
   "license": "MIT",
   "scripts": {
-    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "build": "yarn clean && babel ./src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --ignore-watch node_modules src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "seeds": "ts-node-dev ./src/shared/infra/typeorm/seeds/index.ts",
     "start": "node dist/shared/infra/http/server.js",
+    "clean": "rm -rf dist",
     "test": "jest"
   },
   "dependencies": {
@@ -39,6 +40,7 @@
     "@babel/core": "^7.13.10",
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/plugin-proposal-decorators": "^7.13.5",
+    "@babel/plugin-syntax-typescript": "^7.12.13",
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-typescript": "^7.13.0",
     "@types/bcryptjs": "^2.4.2",

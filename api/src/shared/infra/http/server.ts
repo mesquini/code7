@@ -16,8 +16,9 @@ import routes from '@shared/infra/http/routes';
 import AppError from '@shared/errors/AppError';
 import rateLimiter from './middlewares/rateLimiter';
 
-import '@shared/infra/typeorm'
 import '@shared/container';
+import '@shared/infra/typeorm'
+
 
 const app = express();
 const server = createServer(app);

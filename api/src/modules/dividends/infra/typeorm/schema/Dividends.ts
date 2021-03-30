@@ -7,7 +7,7 @@ import {
   ObjectID,
 } from 'typeorm';
 
-@Entity('dividends')
+@Entity('dividends', {database: 'debts'})
 class Dividends {
   @ObjectIdColumn()
   id: ObjectID;
