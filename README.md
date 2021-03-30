@@ -103,7 +103,8 @@ Este projeto foi desenvolvido para realizar o seguinte desafio ([clique aqui par
   ```
 
 <br />
-Obs: Para rodar o docker compose precisa [instalar](https://docs.docker.com/compose/install/) ele ou usar a [extensão](https://code.visualstudio.com/docs/containers/overview) no VScode.
+
+**Obs**: Para rodar o docker compose precisa [instalar](https://docs.docker.com/compose/install) ele ou usar a [extensão](https://code.visualstudio.com/docs/containers/overview) no VScode.
 
 ---
 
