@@ -1,19 +1,33 @@
-<p align="center">
+<div style="background-color:black;" align="center">
   <img src=".github/logo_branca.svg" alt="App demo"/>
-</p>
+</div>
 
 <h4 align="center">
   Plataforma para controle de devedores
 </h4>
 
 <p align="center">
+  <a href="#page_with_curl-resumo">Resumo</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#information_source-como-codar">Como codar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
+## :page_with_curl: Resumo
+
+Este projeto é responsável por cadastrar e controlar os devedores.
+
+| Method     | Endpoint        | Descrição                 |
+| ---------- | --------------- | ------------------------- |
+| **GET**    | /doc            | Mostrar o Swagger         |
+| **POST**   | /sessions       | Faz a autenticação da API |
+| **GET**    | /dividends      | Lista todos os devedores  |
+| **PUT**    | /dividends      | Atualiza um devedore      |
+| **POST**   | /dividends      | Cria um devedor           |
+| **DELETE** | /dividends/{id} | Deleta um devedore por ID |
+
 ## :rocket: Tecnologias
 
-Este projeto foi desenvolvido o seguinte desafio ([clique aqui para ver](https://1drv.ms/b/s!AoQ9SDShqewLu2CZEqeiRg1KE7uW)) Node e React com as seguintes tecnologias:
+Este projeto foi desenvolvido para realizar o seguinte desafio ([clique aqui para ver](https://1drv.ms/b/s!AoQ9SDShqewLu2CZEqeiRg1KE7uW)), contém Node e React com as seguintes tecnologias:
 
 - Backend
 
@@ -44,25 +58,50 @@ Este projeto foi desenvolvido o seguinte desafio ([clique aqui para ver](https:/
   - [@unform/core](https://www.npmjs.com/package/@unform/core)
   - [@unform/web](https://www.npmjs.com/package/@unform/web)
 
-## :information_source: Como codar
+## :information_source: Como executar
 
-```bash
-# Clone this repository
-$ git clone https://github.com/mesquini/code7
+- Clonar o projeto:
 
-> cd code7
+  ```sh
+  git clone https://github.com/mesquini/code7
+  ```
 
-> cd api
-> yarn install
-> yarn seeds
-> yarn dev ou docker-compose up
+- Abra a pasta:
 
-> cd web
-> yarn install
-> yarn start
-```
+  ```sh
+  cd code7
+  ```
 
-Para ver as rotas que existe, acessar a rota **/doc** que irá abrir o swagger.
+- Rodar Docker Compose (se tiver):
+
+  ```sh
+  docker-compose up
+  ```
+
+- Entrar na pasta da API e rodar:
+
+  ```sh
+  cd api && yarn
+  ```
+
+- Inicializar os Seeds e rodar:
+
+  ```sh
+  yarn seeds && yarn dev
+  ```
+
+- \*Caso não roudou o docker-compose, entrar na pasta WEB e rodar:
+
+  ```sh
+  cd web && yarn
+  ```
+
+- Executar o Web:
+
+  ```sh
+  cd yarn start
+  ```
+
 <br />
 Obs: Para rodar o docker compose precisa [instalar](https://docs.docker.com/compose/install/) ele ou usar a [extensão](https://code.visualstudio.com/docs/containers/overview) no VScode.
 
