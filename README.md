@@ -86,6 +86,8 @@ Este projeto foi desenvolvido para realizar o seguinte desafio ([clique aqui par
 
 - Inicializar os Seeds e rodar:
 
+  - Após rodar o seeds, será criado um usuário para login. Email: admin@debts.com / Senha: 123123
+
   ```sh
   yarn seeds && yarn dev
   ```
@@ -103,8 +105,6 @@ Este projeto foi desenvolvido para realizar o seguinte desafio ([clique aqui par
   ```
 
 <br />
-
-**Após rodar o seeds, será criado um usuário para login. Email: admin@debts.com / Senha: 123123**
 
 **Obs**: Para rodar o docker compose precisa [instalar](https://docs.docker.com/compose/install) ele ou usar a [extensão](https://code.visualstudio.com/docs/containers/overview) no VScode.
 
