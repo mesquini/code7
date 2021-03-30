@@ -247,7 +247,7 @@ const Dashboard: React.FC = () => {
       </Header>
 
       <Content>
-        <h2>Gerenciando de Dívidas</h2>
+        <h2>Gerenciamento de Dívidas</h2>
         <Buttons>
           <Form onSubmit={() => {}}>
             <Input

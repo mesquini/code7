@@ -24,6 +24,7 @@ export const HeaderContent = styled.div`
   button {
     margin-left: auto;
     background: transparent;
+    margin-right: 10px;
     border: 0;
 
     svg {
@@ -36,6 +37,10 @@ export const HeaderContent = styled.div`
         color: #135B7B;
       }
     }
+  }
+
+  @media (max-width: 700px) {
+
   }
 `;
 
@@ -102,15 +107,12 @@ export const Buttons = styled.div`
     }
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 500px) {
     display: grid;
     margin: 25px 0 25px;
     justify-content: center;
 
     div {
-      margin: 0;
-      padding: 0;
-
       svg {
         left: 6px;
         top: 6px;
@@ -165,10 +167,27 @@ export const Dividends = styled.div`
     }
   }
 
-  @media (max-width: 700px) {
-    grid-template-columns: auto auto auto;
+  @media (max-width: 1080px) {
+    grid-template-columns: repeat(3, 1fr);
 
+    button {
+      div {
+        display: grid;
+      }
     }
+  }
+
+  @media (max-width: 700px) {
+
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 400px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const Label = styled.div`
